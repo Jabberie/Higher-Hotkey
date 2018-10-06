@@ -15,9 +15,11 @@
 	- Default
 	- Dominos
 	- Bartender4
+	- ElvUI
 
 	It should have no problems with addons that modify hotkey text.
 
+	10/06/2018 1.0.9 added ElvUI support
 	08/29/2017 1.0.8 toc update for 7.3 patch
 	03/28/2017 1.0.7 toc update for 7.2 patch
 	10/24/2016 1.0.6 toc update for 7.1 patch
@@ -39,10 +41,16 @@ local defaultStubs = {
 -- Bartender4 button stubs
 local bt4Stubs = { BT4Button=120, BT4StanceButton=10, BT4PetButton=10 }
 
+-- ElvUI_Bar button stubs
+local ElvUIStubs = { ElvUI_Bar1Button=12, ElvUI_Bar2Button=12, 
+	ElvUI_Bar3Button=12, ElvUI_Bar4Button=12, ElvUI_Bar5Button=12, 
+	ElvUI_Bar6Button=12, PetActionButton=10, ElvUI_StanceBarButton=10 }
+
+
 local frame = CreateFrame("Frame")
 frame:SetScript("OnUpdate",function(self,event)
 	self:Hide() -- runs this only once per login
-	local stubs = IsAddOnLoaded("Bartender4") and bt4Stubs or defaultStubs
+	local stubs = IsAddOnLoaded("Bartender4") and bt4Stubs or IsAddOnLoaded("ElvUI") and ElvUIStubs or defaultStubs
 	for stub,numButtons in pairs(stubs) do
     local parent, hotkey
 		for i=1,numButtons do
